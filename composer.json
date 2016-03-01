@@ -1,0 +1,29 @@
+{
+  "name": "t4web/migrations",
+  "description": "ZF2 Module for database migrations management.",
+  "type": "zf2-module",
+  "license": "BSD-3-Clause",
+  "keywords": [ "migrations", "zf2 module" ],
+  "homepage": "https://github.com/t4web/Migrations",
+  "require": {
+    "php": ">=5.5",
+
+    "zendframework/zend-modulemanager": "^2.5",
+    "zendframework/zend-servicemanager": "^2.5",
+    "zendframework/zend-console": "^2.5",
+    "zendframework/zend-mvc": "^2.5"
+  },
+  "require-dev" : {
+    "phpunit/phpunit": "^4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "T4web\\Migrations\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "T4web\\MigrationsTest\\": "tests/"
+    }
+  }
+}
