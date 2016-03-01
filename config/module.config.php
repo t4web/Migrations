@@ -3,7 +3,7 @@
 return [
 
     'migrations' => [
-        'dir' => dirname(__FILE__) . '/../../../migrations',
+        'dir' => dirname(__FILE__) . '/../../../../migrations',
         'namespace' => 'T4web\Migrations',
         'adapter' => 'Zend\Db\Adapter\Adapter',
         'show_log' => true,
