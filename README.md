@@ -84,7 +84,7 @@ Generic migration class has name `Version_<YmdHis>` and implement `T4web\Migrati
 ```php
 <?php
 
-namespace `T4web\Migrations;
+namespace T4web\Migrations;
 
 use `T4web\Migrations\Migration\AbstractMigration;
 use Zend\Db\Metadata\MetadataInterface;
