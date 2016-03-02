@@ -39,5 +39,4 @@ class MigrationVersion
     {
         return $this->version;
     }
-
 }

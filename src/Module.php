@@ -27,13 +27,13 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     __NAMESPACE__ => dirname(__DIR__) . '/src',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     /**
@@ -78,7 +78,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             ['[<name>]', 'specify which configured migrations to run, defaults to `default`'],
             [
                 '--force',
-                'Force apply migration even if it\'s older than the last migrated. Works only with <version> explicitly set.'
+                'Force apply migration even if it\'s older than the last migrated.'
+                .' Works only with <version> explicitly set.'
             ],
             [
                 '--down',
@@ -86,7 +87,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             ],
             [
                 '--fake',
-                'Fake apply or apply down migration. Adds/removes migration to the list of applied w/out really applying it. Works only with <version> explicitly set.'
+                'Fake apply or apply down migration.'
+                .' Adds/removes migration to the list of applied w/out really applying it.'
+                .' Works only with <version> explicitly set.'
             ],
         ];
     }

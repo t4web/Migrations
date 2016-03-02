@@ -17,8 +17,7 @@ class TableFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if($serviceLocator instanceof AbstractPluginManager)
-        {
+        if ($serviceLocator instanceof AbstractPluginManager) {
             $serviceLocator = $serviceLocator->getServiceLocator();
         }
 

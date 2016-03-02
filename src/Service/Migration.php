@@ -224,7 +224,7 @@ class Migration
                 if ($all || !$applied) {
                     $className = $this->migrationsNamespace . '\\' . $matches[1];
 
-                    if (!class_exists($className)) /** @noinspection PhpIncludeInspection */ {
+                    if (!class_exists($className)) { /** @noinspection PhpIncludeInspection */
                         require_once $this->migrationsDir . '/' . $item->getFilename();
                     }
 

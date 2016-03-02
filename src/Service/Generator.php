@@ -79,7 +79,10 @@ class %s extends AbstractMigration
         //throw new \RuntimeException(\'No way to go down!\');
         //$this->addSql(/*Sql instruction*/);
     }
-}', $this->migrationNamespace, $className);
+}',
+            $this->migrationNamespace,
+            $className
+        );
 
     }
 }

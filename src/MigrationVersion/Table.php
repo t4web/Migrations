@@ -39,7 +39,9 @@ class Table
         $result = $this->tableGateway->select(function (Select $select) {
             $select->order('version DESC')->limit(1);
         });
-        if (!$result->count()) return 0;
+        if (!$result->count()) {
+            return 0;
+        }
         return $result->current()->getVersion();
     }
 }

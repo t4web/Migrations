@@ -9,7 +9,8 @@ class OutputWriter
     public function __construct(\Closure $closure = null)
     {
         if ($closure === null) {
-            $closure = function ($message) { };
+            $closure = function ($message) {
+            };
         }
         $this->closure = $closure;
     }

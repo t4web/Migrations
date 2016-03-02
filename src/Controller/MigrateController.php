@@ -114,5 +114,4 @@ class MigrateController extends AbstractActionController
     {
         return $this->generator;
     }
-
 }
