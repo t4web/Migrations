@@ -44,16 +44,6 @@ class MigrateController extends AbstractActionController
     }
 
     /**
-     * Get current migration version
-     *
-     * @return int
-     */
-    public function versionAction()
-    {
-        return sprintf("Current version %s\n", $this->getMigration()->getCurrentVersion());
-    }
-
-    /**
      * List migrations - not applied by default, all with 'all' flag.
      *
      * @return string

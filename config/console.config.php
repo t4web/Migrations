@@ -19,9 +19,7 @@ return [
                 'options' => [
                     'route' => 'migration version [--env=]',
                     'defaults' => [
-                        '__NAMESPACE__' => 'T4web\Migrations\Controller',
-                        'controller' => 'Migrate',
-                        'action' => 'version'
+                        'controller' => Controller\VersionController::class,
                     ]
                 ]
             ],
