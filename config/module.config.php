@@ -1,5 +1,7 @@
 <?php
 
+namespace T4web\Migrations;
+
 return [
 
     'migrations' => [
@@ -14,7 +16,8 @@ return [
 
     'controllers' => [
         'factories' => [
-            'T4web\Migrations\Controller\Migrate' => 'T4web\Migrations\Controller\MigrateControllerFactory'
+            'T4web\Migrations\Controller\Migrate' => 'T4web\Migrations\Controller\MigrateControllerFactory',
+            Controller\InitController::class => Controller\InitControllerFactory::class,
         ],
     ],
 ];

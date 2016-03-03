@@ -55,9 +55,11 @@ class Config
             throw new RuntimeException(sprintf('Migrations directory is not writable %s', $this->dir));
         }
 
-        if (isset($options['adapter'])) {
-            $this->adapter = $options['adapter'];
+        if (!isset($options['adapter'])) {
+            $options['adapter'] = 'Zend\Db\Adapter\Adapter';
         }
+
+        $this->adapter = $options['adapter'];
 
         if (isset($options['show_log'])) {
             $this->showLog = $options['show_log'];

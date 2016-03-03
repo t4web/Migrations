@@ -1,8 +1,19 @@
 <?php
 
+namespace T4web\Migrations;
+
 return [
     'router' => [
         'routes' => [
+            'migration-init' => [
+                'type' => 'simple',
+                'options' => [
+                    'route' => 'migration init',
+                    'defaults' => [
+                        'controller' => Controller\InitController::class,
+                    ]
+                ]
+            ],
             'migration-version' => [
                 'type' => 'simple',
                 'options' => [

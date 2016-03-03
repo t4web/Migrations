@@ -3,12 +3,10 @@
 namespace T4web\Migrations\Service;
 
 use T4web\Migrations\Migration\AbstractMigration;
-use T4web\Migrations\MigrationVersion\MigrationVersion;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\Adapter\Exception\InvalidQueryException;
 use Zend\Db\Sql\Ddl;
-use Zend\Db\Sql\Sql;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 
 /**
@@ -74,29 +72,6 @@ class Migration
             if (!mkdir($this->migrationsDir, 0775)) {
                 throw new \Exception(sprintf('Failed to create migrations directory %s', $this->migrationsDir));
             }
-        }
-
-        $this->checkCreateMigrationTable();
-    }
-
-    /**
-     * Create migrations table of not exists
-     */
-    protected function checkCreateMigrationTable()
-    {
-        $table = new Ddl\CreateTable(MigrationVersion::TABLE_NAME);
-        $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
-        $table->addColumn(new Ddl\Column\BigInteger('version'));
-        $table->addConstraint(new Ddl\Constraint\PrimaryKey('id'));
-        $table->addConstraint(new Ddl\Constraint\UniqueKey('version'));
-
-        $sql = new Sql($this->adapter);
-
-        try {
-            $this->adapter->query($sql->buildSqlString($table), Adapter::QUERY_MODE_EXECUTE);
-        } catch (\Exception $e) {
-            // currently there are no db-independent way to check if table exists
-            // so we assume that table exists when we catch exception
         }
     }
 

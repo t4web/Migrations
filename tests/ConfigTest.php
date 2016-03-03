@@ -91,7 +91,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             'migrations' => [
                 'dir' => '/migrations',
                 'namespace' => 'T4web\Migrations',
-                'adapter' => 'Zend\Db\Adapter\Adapter',
+                'adapter' => 'XXX\Db\Adapter\Adapter',
                 'show_log' => true
             ],
         ];
@@ -104,6 +104,29 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($appConfig['migrations']['dir'], $config->getDir());
         $this->assertEquals($appConfig['migrations']['namespace'], $config->getNamespace());
         $this->assertEquals($appConfig['migrations']['adapter'], $config->getAdapter());
+        $this->assertEquals($appConfig['migrations']['show_log'], $config->isShowLog());
+    }
+
+    public function testConfigDafaults()
+    {
+        $filesystem = $this->prophesize(Filesystem::class);
+
+        $appConfig = [
+            'migrations' => [
+                'dir' => '/migrations',
+                'namespace' => 'T4web\Migrations',
+                'show_log' => true
+            ],
+        ];
+
+        $filesystem->isDir($appConfig['migrations']['dir'])->willReturn(true);
+        $filesystem->isWritable($appConfig['migrations']['dir'])->willReturn(true);
+
+        $config = new Config($appConfig, $filesystem->reveal());
+
+        $this->assertEquals($appConfig['migrations']['dir'], $config->getDir());
+        $this->assertEquals($appConfig['migrations']['namespace'], $config->getNamespace());
+        $this->assertEquals('Zend\Db\Adapter\Adapter', $config->getAdapter());
         $this->assertEquals($appConfig['migrations']['show_log'], $config->isShowLog());
     }
 }

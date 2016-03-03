@@ -60,6 +60,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
     public function getConsoleUsage(AdapterInterface $console)
     {
         return [
+            'Initialize migrations',
+            'migration init' => 'Check config, create table `migrations`',
+
             'Get last applied migration version',
             'migration version [<name>]' => '',
             ['[<name>]', 'specify which configured migrations to run, defaults to `default`'],
