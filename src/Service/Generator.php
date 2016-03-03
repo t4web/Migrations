@@ -2,32 +2,40 @@
 
 namespace T4web\Migrations\Service;
 
+use T4web\Filesystem\Filesystem;
+use T4web\Migrations\Config;
+use T4web\Migrations\Exception\RuntimeException;
+
 /**
  * Migration class generator
  */
 class Generator
 {
-
+    /**
+     * @var string
+     */
     protected $migrationsDir;
+
+    /**
+     * @var string
+     */
     protected $migrationNamespace;
 
     /**
-     * @param string $migrationsDir migrations working directory
-     * @param string $migrationsNamespace migrations namespace
+     * @var Filesystem
+     */
+    protected $filesystem;
+
+    /**
+     * @param Config $config
+     * @param Filesystem $filesystem
      * @throws \Exception
      */
-    public function __construct($migrationsDir, $migrationsNamespace)
+    public function __construct(Config $config, Filesystem $filesystem)
     {
-        $this->migrationsDir = $migrationsDir;
-        $this->migrationNamespace = $migrationsNamespace;
-
-        if (!is_dir($this->migrationsDir)) {
-            if (!mkdir($this->migrationsDir, 0775)) {
-                throw new \Exception(sprintf('Failed to create migrations directory %s', $this->migrationsDir));
-            }
-        } elseif (!is_writable($this->migrationsDir)) {
-            throw new \Exception(sprintf('Migrations directory is not writable %s', $this->migrationsDir));
-        }
+        $this->migrationsDir = $config->getDir();
+        $this->migrationNamespace = $config->getNamespace();
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -41,10 +49,10 @@ class Generator
         $className = 'Version_' . date('YmdHis', time());
         $classPath = $this->migrationsDir . DIRECTORY_SEPARATOR . $className . '.php';
 
-        if (file_exists($classPath)) {
-            throw new \Exception(sprintf('Migration %s exists!', $className));
+        if ($this->filesystem->exists($classPath)) {
+            throw new RuntimeException(sprintf('Migration %s exists!', $className));
         }
-        file_put_contents($classPath, $this->getTemplate($className));
+        $this->filesystem->put($classPath, $this->getTemplate($className));
 
         return $classPath;
     }

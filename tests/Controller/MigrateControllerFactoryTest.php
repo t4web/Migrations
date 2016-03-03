@@ -1,6 +1,6 @@
 <?php
 
-namespace T4web\AuthenticationTest\Controller;
+namespace T4web\MigrationsTest\Controller;
 
 use Prophecy\Argument;
 use Zend\ServiceManager\ServiceLocatorInterface;

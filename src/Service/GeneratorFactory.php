@@ -4,7 +4,8 @@ namespace T4web\Migrations\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\AbstractPluginManager;
+use T4web\Filesystem\Filesystem;
+use T4web\Migrations\Config;
 
 class GeneratorFactory implements FactoryInterface
 {
@@ -17,26 +18,9 @@ class GeneratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if ($serviceLocator instanceof AbstractPluginManager) {
-            $serviceLocator = $serviceLocator->getServiceLocator();
-        }
+        $config = $serviceLocator->get(Config::class);
+        $filesystem = $serviceLocator->get(Filesystem::class);
 
-        $config = $serviceLocator->get('Config');
-
-        if (!isset($config['migrations'])) {
-            throw new \RuntimeException("Missing migrations configuration");
-        }
-
-        $migrationConfig = $config['migrations'];
-
-        if (!isset($migrationConfig['dir'])) {
-            throw new \RuntimeException("`dir` has not be specified in migrations configuration");
-        }
-
-        if (! isset($migrationConfig['namespace'])) {
-            throw new \RuntimeException("`namespace` has not be specified in migrations configuration");
-        }
-
-        return new Generator($migrationConfig['dir'], $migrationConfig['namespace']);
+        return new Generator($config, $filesystem);
     }
 }
