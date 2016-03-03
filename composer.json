@@ -31,12 +31,6 @@
     }
   },
   "scripts": {
-    "post-package-install": [
-      "T4web\\Migrations\\Module::postPackageInstall"
-    ],
-    "post-install-cmd": [
-      "T4web\\Migrations\\Module::postInstall"
-    ],
     "check": [
       "@cs",
       "@test"

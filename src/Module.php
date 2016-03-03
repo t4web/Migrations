@@ -93,14 +93,4 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             ],
         ];
     }
-
-    public static function postPackageInstall(PackageEvent $event)
-    {
-        var_dump(__METHOD__);
-    }
-
-    public static function postInstall(PackageEvent $event)
-    {
-        var_dump(__METHOD__);
-    }
 }
