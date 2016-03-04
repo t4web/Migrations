@@ -13,12 +13,5 @@ return [
 
     'service_manager' => require_once 'service_manager.config.php',
     'console' => require_once 'console.config.php',
-
-    'controllers' => [
-        'factories' => [
-            'T4web\Migrations\Controller\Migrate' => 'T4web\Migrations\Controller\MigrateControllerFactory',
-            Controller\InitController::class => Controller\InitControllerFactory::class,
-            Controller\VersionController::class => Controller\VersionControllerFactory::class,
-        ],
-    ],
+    'controllers' => require_once 'controllers.config.php',
 ];

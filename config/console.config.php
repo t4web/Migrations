@@ -28,9 +28,7 @@ return [
                 'options' => [
                     'route' => 'migration list [--env=] [--all]',
                     'defaults' => [
-                        '__NAMESPACE__' => 'T4web\Migrations\Controller',
-                        'controller' => 'Migrate',
-                        'action' => 'list'
+                        'controller' => Controller\ListController::class,
                     ]
                 ]
             ],

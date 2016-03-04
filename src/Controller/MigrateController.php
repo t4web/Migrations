@@ -44,21 +44,6 @@ class MigrateController extends AbstractActionController
     }
 
     /**
-     * List migrations - not applied by default, all with 'all' flag.
-     *
-     * @return string
-     */
-    public function listAction()
-    {
-        $migrations = $this->getMigration()->getMigrationClasses($this->getRequest()->getParam('all'));
-        $list = [];
-        foreach ($migrations as $m) {
-            $list[] = sprintf("%s %s - %s", $m['applied'] ? '-' : '+', $m['version'], $m['description']);
-        }
-        return (empty($list) ? 'No migrations available.' : implode("\n", $list)) . "\n";
-    }
-
-    /**
      * Apply migration
      */
     public function applyAction()
