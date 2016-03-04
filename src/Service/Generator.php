@@ -70,8 +70,8 @@ class Generator
 
 namespace %s;
 
-use T4web\Migrations\Migration\AbstractMigration;
 use Zend\Db\Metadata\MetadataInterface;
+use T4web\Migrations\Migration\AbstractMigration;
 
 class %s extends AbstractMigration
 {
