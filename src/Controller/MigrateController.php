@@ -39,29 +39,7 @@ class MigrateController extends AbstractActionController
      */
     public function __construct(Migration $migration, Generator $generator)
     {
-        $this->migration = $migration;
         $this->generator = $generator;
-    }
-
-    /**
-     * Apply migration
-     */
-    public function applyAction()
-    {
-        $version = $this->getRequest()->getParam('version');
-        $force = $this->getRequest()->getParam('force');
-        $down = $this->getRequest()->getParam('down');
-        $fake = $this->getRequest()->getParam('fake');
-
-        if (is_null($version) && $force) {
-            return "Can't force migration apply without migration version explicitly set.\n";
-        }
-        if (is_null($version) && $fake) {
-            return "Can't fake migration apply without migration version explicitly set.\n";
-        }
-
-        $this->getMigration()->migrate($version, $force, $down, $fake);
-        return "Migrations applied!\n";
     }
 
     /**
@@ -72,14 +50,6 @@ class MigrateController extends AbstractActionController
         $classPath = $this->getGenerator()->generate();
 
         return sprintf("Generated skeleton class @ %s\n", realpath($classPath));
-    }
-
-    /**
-     * @return Migration
-     */
-    public function getMigration()
-    {
-        return $this->migration;
     }
 
     /**

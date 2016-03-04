@@ -16,8 +16,6 @@ class ListController extends AbstractActionController
     protected $migration;
 
     /**
-     * MigrateController constructor.
-     *
      * @param Migration $migration
      */
     public function __construct(Migration $migration)

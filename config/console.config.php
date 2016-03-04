@@ -37,9 +37,7 @@ return [
                 'options' => [
                     'route' => 'migration apply [<version>] [--env=] [--force] [--down] [--fake]',
                     'defaults' => [
-                        '__NAMESPACE__' => 'T4web\Migrations\Controller',
-                        'controller' => 'Migrate',
-                        'action' => 'apply'
+                        'controller' => Controller\ApplyController::class,
                     ]
                 ]
             ],

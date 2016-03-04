@@ -8,5 +8,6 @@ return [
         Controller\InitController::class => Controller\InitControllerFactory::class,
         Controller\VersionController::class => Controller\VersionControllerFactory::class,
         Controller\ListController::class => Controller\ListControllerFactory::class,
+        Controller\ApplyController::class => Controller\ApplyControllerFactory::class,
     ],
 ];
