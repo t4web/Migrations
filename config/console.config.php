@@ -46,9 +46,7 @@ return [
                 'options' => [
                     'route' => 'migration generate [--env=]',
                     'defaults' => [
-                        '__NAMESPACE__' => 'T4web\Migrations\Controller',
-                        'controller' => 'Migrate',
-                        'action' => 'generate'
+                        'controller' => Controller\GenerateController::class,
                     ]
                 ]
             ]
