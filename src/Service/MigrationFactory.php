@@ -40,6 +40,14 @@ class MigrationFactory implements FactoryInterface
         $migrationVersionTable = $serviceLocator->get('T4web\Migrations\MigrationVersion\Table');
         $metadata = new Metadata($adapter);
 
-        return new Migration($adapter, $metadata, $migrationConfig, $migrationVersionTable, $output, $serviceLocator);
+        return new Migration(
+            $adapter,
+            $metadata,
+            $migrationConfig,
+            $serviceLocator->get(VersionResolver::class),
+            $migrationVersionTable,
+            $output,
+            $serviceLocator
+        );
     }
 }

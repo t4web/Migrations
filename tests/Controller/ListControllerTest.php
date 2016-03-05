@@ -4,17 +4,17 @@ namespace T4web\MigrationsTest\Controller;
 
 use Prophecy\Argument;
 use T4web\Migrations\Controller\ListController;
-use T4web\Migrations\Service\Migration;
+use T4web\Migrations\Service\VersionResolver;
 use T4web\Migrations\Exception\RuntimeException;
 
 class ListControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testOnDispatchNotConsoleRequest()
     {
-        $migration = $this->prophesize(Migration::class);
+        $resolver = $this->prophesize(VersionResolver::class);
         $event = $this->prophesize('Zend\Mvc\MvcEvent');
 
-        $controller = new ListController($migration->reveal());
+        $controller = new ListController($resolver->reveal());
 
         $event->getRequest()->willReturn(
             $this->prophesize('Zend\Http\Request')->reveal()
@@ -27,11 +27,11 @@ class ListControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testOnDispatch()
     {
-        $migration = $this->prophesize(Migration::class);
+        $resolver = $this->prophesize(VersionResolver::class);
         $event = $this->prophesize('Zend\Mvc\MvcEvent');
         $request = $this->prophesize('Zend\Console\Request');
 
-        $controller = new ListController($migration->reveal());
+        $controller = new ListController($resolver->reveal());
 
         $event->getRequest()->willReturn(
             $request->reveal()
@@ -47,7 +47,7 @@ class ListControllerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $migration->getMigrationClasses(false)->willReturn($migrations);
+        $resolver->getAll(false)->willReturn($migrations);
 
         $m = $migrations[0];
 

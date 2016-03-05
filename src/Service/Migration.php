@@ -39,6 +39,7 @@ class Migration
      * @param                          $metadata
      * @param array                    $config
      * @param                          $migrationVersionTable
+     * @param VersionResolver          $versionResolver
      * @param OutputWriter             $writer
      * @param null                     $serviceLocator
      * @throws \Exception
@@ -47,6 +48,7 @@ class Migration
         Adapter $adapter,
         $metadata,
         array $config,
+        VersionResolver $versionResolver,
         $migrationVersionTable,
         OutputWriter $writer = null,
         $serviceLocator = null
@@ -56,6 +58,7 @@ class Migration
         $this->connection = $this->adapter->getDriver()->getConnection();
         $this->migrationsDir = $config['dir'];
         $this->migrationsNamespace = $config['namespace'];
+        $this->versionResolver = $versionResolver;
         $this->migrationVersionTable = $migrationVersionTable;
         $this->outputWriter = $writer;
         $this->serviceLocator = $serviceLocator;
@@ -92,7 +95,8 @@ class Migration
      */
     public function migrate($version = null, $force = false, $down = false, $fake = false)
     {
-        $migrations = $this->getMigrationClasses($force);
+        //$migrations = $this->getMigrationClasses($force);
+        $migrations = $this->versionResolver->getAll($force);
 
         if (!is_null($version) && !$this->hasMigrationVersions($migrations, $version)) {
             throw new \Exception(sprintf('Migration version %s is not found!', $version));
@@ -119,7 +123,7 @@ class Migration
             return;
         }
 
-        foreach ($this->getMigrationClasses() as $migration) {
+        foreach ($this->versionResolver->getAll() as $migration) {
             $this->applyMigration($migration, false, $fake);
         }
     }
@@ -178,61 +182,6 @@ class Migration
         $versions = array_reverse($versions);
 
         return count($versions) > 0 ? $versions[0] : 0;
-    }
-
-    /**
-     * @param bool $all
-     * @return \ArrayIterator
-     */
-    public function getMigrationClasses($all = false)
-    {
-        $classes = new \ArrayIterator();
-
-        $iterator = new \GlobIterator(
-            sprintf('%s/Version_*.php', $this->migrationsDir),
-            \FilesystemIterator::KEY_AS_FILENAME
-        );
-        foreach ($iterator as $item) {
-            /** @var $item \SplFileInfo */
-            if (preg_match('/(Version_(\d+))\.php/', $item->getFilename(), $matches)) {
-                $applied = $this->migrationVersionTable->applied($matches[2]);
-                if ($all || !$applied) {
-                    $className = $this->migrationsNamespace . '\\' . $matches[1];
-
-                    if (!class_exists($className)) { /** @noinspection PhpIncludeInspection */
-                        require_once $this->migrationsDir . '/' . $item->getFilename();
-                    }
-
-                    if (class_exists($className)) {
-                        $reflectionClass = new \ReflectionClass($className);
-                        $reflectionDescription = new \ReflectionProperty($className, 'description');
-
-                        if ($reflectionClass->implementsInterface('T4web\Migrations\Migration\MigrationInterface')) {
-                            $classes->append(
-                                [
-                                    'version' => $matches[2],
-                                    'class' => $className,
-                                    'description' => $reflectionDescription->getValue(),
-                                    'applied' => $applied,
-                                ]
-                            );
-                        }
-                    }
-                }
-            }
-        }
-
-        $classes->uasort(
-            function ($a, $b) {
-                if ($a['version'] == $b['version']) {
-                    return 0;
-                }
-
-                return ($a['version'] < $b['version']) ? -1 : 1;
-            }
-        );
-
-        return $classes;
     }
 
     protected function applyMigration(array $migration, $down = false, $fake = false)

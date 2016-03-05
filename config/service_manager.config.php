@@ -5,11 +5,12 @@ use Symfony\Component\Filesystem\Filesystem;
 
 return [
     'factories' => [
-        'T4web\Migrations\MigrationVersion\Table' => 'T4web\Migrations\MigrationVersion\TableFactory',
-        'T4web\Migrations\MigrationVersion\TableGateway' => 'T4web\Migrations\MigrationVersion\TableGatewayFactory',
-        'T4web\Migrations\Service\Migration' => 'T4web\Migrations\Service\MigrationFactory',
-        'T4web\Migrations\Service\Generator' => 'T4web\Migrations\Service\GeneratorFactory',
+        MigrationVersion\Table::class => MigrationVersion\TableFactory::class,
+        MigrationVersion\TableGateway::class => MigrationVersion\TableGatewayFactory::class,
+        Service\Migration::class => Service\MigrationFactory::class,
+        Service\Generator::class => Service\GeneratorFactory::class,
         Config::class => ConfigFactory::class,
+        Service\VersionResolver::class => Service\VersionResolverFactory::class,
     ],
     'invokables' => [
         Filesystem::class => Filesystem::class,

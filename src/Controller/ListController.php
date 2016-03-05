@@ -5,22 +5,22 @@ namespace T4web\Migrations\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\MvcEvent;
-use T4web\Migrations\Service\Migration;
+use T4web\Migrations\Service\VersionResolver;
 use T4web\Migrations\Exception\RuntimeException;
 
 class ListController extends AbstractActionController
 {
     /**
-     * @var Migration
+     * @var VersionResolver
      */
-    protected $migration;
+    protected $versionResolver;
 
     /**
-     * @param Migration $migration
+     * @param VersionResolver $versionResolver
      */
-    public function __construct(Migration $migration)
+    public function __construct(VersionResolver $versionResolver)
     {
-        $this->migration = $migration;
+        $this->versionResolver = $versionResolver;
     }
 
     public function onDispatch(MvcEvent $e)
@@ -29,7 +29,7 @@ class ListController extends AbstractActionController
             throw new RuntimeException('You can only use this action from a console!');
         }
 
-        $migrations = $this->migration->getMigrationClasses($e->getRequest()->getParam('all'));
+        $migrations = $this->versionResolver->getAll($e->getRequest()->getParam('all'));
         $list = [];
         foreach ($migrations as $m) {
             $list[] = sprintf("%s %s - %s", $m['applied'] ? '-' : '+', $m['version'], $m['description']);
