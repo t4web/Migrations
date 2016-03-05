@@ -20,7 +20,7 @@ class Table
     public function save($version)
     {
         $this->tableGateway->insert(['version' => $version]);
-        return $this->tableGateway->lastInsertValue;
+        return $this->tableGateway->getLastInsertValue();
     }
 
     public function delete($version)
