@@ -11,11 +11,11 @@ class VersionX extends AbstractMigration
 
     public function up()
     {
-        $this->addSql("SELECT *");
+        //$this->addSql("SELECT *");
     }
 
     public function down()
     {
-        $this->addSql("DELETE *");
+        //$this->addSql("DELETE *");
     }
 }
