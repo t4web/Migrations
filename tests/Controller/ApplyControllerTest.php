@@ -40,7 +40,6 @@ class ApplyControllerTest extends \PHPUnit_Framework_TestCase
         $request->getParam('version')->willReturn(null);
         $request->getParam('force')->willReturn(true);
         $request->getParam('down')->willReturn(false);
-        $request->getParam('fake')->willReturn(false);
 
         $event->setResult("Can't force migration apply without migration version explicitly set.\n")
             ->willReturn(null);
@@ -49,34 +48,6 @@ class ApplyControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             "Can't force migration apply without migration version explicitly set.\n",
-            $response
-        );
-    }
-
-    public function testOnDispatchFake()
-    {
-        $migration = $this->prophesize(Migration::class);
-        $event = $this->prophesize('Zend\Mvc\MvcEvent');
-        $request = $this->prophesize('Zend\Console\Request');
-
-        $controller = new ApplyController($migration->reveal());
-
-        $event->getRequest()->willReturn(
-            $request->reveal()
-        );
-
-        $request->getParam('version')->willReturn(null);
-        $request->getParam('force')->willReturn(false);
-        $request->getParam('down')->willReturn(false);
-        $request->getParam('fake')->willReturn(true);
-
-        $event->setResult("Can't fake migration apply without migration version explicitly set.\n")
-            ->willReturn(null);
-
-        $response = $controller->onDispatch($event->reveal());
-
-        $this->assertEquals(
-            "Can't fake migration apply without migration version explicitly set.\n",
             $response
         );
     }
@@ -96,9 +67,8 @@ class ApplyControllerTest extends \PHPUnit_Framework_TestCase
         $request->getParam('version')->willReturn(null);
         $request->getParam('force')->willReturn(false);
         $request->getParam('down')->willReturn(false);
-        $request->getParam('fake')->willReturn(false);
 
-        $migration->migrate(null, false, false, false)->willReturn(null);
+        $migration->migrate(null, false, false)->willReturn(null);
         $event->setResult("Migrations applied!\n")->willReturn(null);
 
         $response = $controller->onDispatch($event->reveal());

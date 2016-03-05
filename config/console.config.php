@@ -35,7 +35,7 @@ return [
             'migration-apply' => [
                 'type' => 'simple',
                 'options' => [
-                    'route' => 'migration apply [<version>] [--env=] [--force] [--down] [--fake]',
+                    'route' => 'migration apply [<version>] [--env=] [--force] [--down]',
                     'defaults' => [
                         'controller' => Controller\ApplyController::class,
                     ]

@@ -77,7 +77,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             ['[<name>]', 'specify which configured migrations to run, defaults to `default`'],
 
             'Execute migration',
-            'migration apply [<name>] [<version>] [--force] [--down] [--fake]' => '',
+            'migration apply [<name>] [<version>] [--force] [--down]' => '',
             ['[<name>]', 'specify which configured migrations to run, defaults to `default`'],
             [
                 '--force',
@@ -87,12 +87,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface, Co
             [
                 '--down',
                 'Force apply down migration. Works only with --force flag set.'
-            ],
-            [
-                '--fake',
-                'Fake apply or apply down migration.'
-                .' Adds/removes migration to the list of applied w/out really applying it.'
-                .' Works only with <version> explicitly set.'
             ],
         ];
     }

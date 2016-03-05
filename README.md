@@ -76,7 +76,7 @@ The service alias that will be used to fetch a `Zend\Db\Adapter\Adapter` from th
 
 * `migration version` - show last applied migration (`name` specifies a configured migration)
 * `migration list [--all]` - list available migrations (`all` includes applied migrations)
-* `migration apply [<version>] [--force] [--down] [--fake]` - apply or rollback migration
+* `migration apply [<version>] [--force] [--down]` - apply or rollback migration
 * `migration generate` - generate migration class
 
 Migration classes are stored in `/path/to/project/migrations/` dir by default.

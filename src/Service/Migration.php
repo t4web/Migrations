@@ -53,10 +53,9 @@ class Migration
      * @param int $version target migration version, if not set all not applied available migrations will be applied
      * @param bool $force force apply migration
      * @param bool $down rollback migration
-     * @param bool $fake
      * @throws \Exception
      */
-    public function migrate($version = null, $force = false, $down = false, $fake = false)
+    public function migrate($version = null, $force = false, $down = false)
     {
         $migrations = $this->versionResolver->getAll($force);
 
@@ -77,7 +76,7 @@ class Migration
                     if (!$down) {
                         $this->versionTable->delete($migration['version']);
                     }
-                    $this->applyMigration($migration, $down, $fake);
+                    $this->applyMigration($migration, $down);
                     break;
                 }
             }
@@ -86,7 +85,7 @@ class Migration
         }
 
         foreach ($this->versionResolver->getAll() as $migration) {
-            $this->applyMigration($migration, false, $fake);
+            $this->applyMigration($migration, false);
         }
     }
 
@@ -146,7 +145,7 @@ class Migration
         return count($versions) > 0 ? $versions[0] : 0;
     }
 
-    protected function applyMigration(array $migration, $down = false, $fake = false)
+    protected function applyMigration(array $migration, $down = false)
     {
         try {
             /** @var $migrationObject AbstractMigration */
@@ -154,8 +153,7 @@ class Migration
 
             $this->console->writeLine(
                 sprintf(
-                    "%sExecute migration class %s %s.",
-                    $fake ? '[FAKE] ' : '',
+                    "%sExecute migration class %s.",
                     $migration['class'],
                     $down ? 'down' : 'up'
                 )

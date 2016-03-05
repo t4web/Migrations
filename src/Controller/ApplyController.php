@@ -32,7 +32,6 @@ class ApplyController extends AbstractActionController
         $version = $e->getRequest()->getParam('version');
         $force = $e->getRequest()->getParam('force');
         $down = $e->getRequest()->getParam('down');
-        $fake = $e->getRequest()->getParam('fake');
 
         if (is_null($version) && $force) {
             $response = "Can't force migration apply without migration version explicitly set.\n";
@@ -40,13 +39,7 @@ class ApplyController extends AbstractActionController
             return $response;
         }
 
-        if (is_null($version) && $fake) {
-            $response = "Can't fake migration apply without migration version explicitly set.\n";
-            $e->setResult($response);
-            return $response;
-        }
-
-        $this->migration->migrate($version, $force, $down, $fake);
+        $this->migration->migrate($version, $force, $down);
         $response = "Migrations applied!\n";
 
         $e->setResult($response);
