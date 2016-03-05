@@ -1,6 +1,6 @@
 <?php
 
-namespace T4web\MigrationsTest\Service;
+namespace T4web\MigrationsTest\Version;
 
 use Prophecy\Argument;
 use Zend\Db\TableGateway\TableGateway;
