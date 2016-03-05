@@ -9,13 +9,6 @@ use T4web\Migrations\Version\Resolver;
 
 class MigrationFactory implements FactoryInterface
 {
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
-     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new Migration(
