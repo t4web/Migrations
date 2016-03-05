@@ -4,7 +4,7 @@ namespace T4web\Migrations\Controller;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use T4web\Migrations\Service\Migration;
+use T4web\Migrations\MigrationVersion\Table;
 
 class VersionControllerFactory implements FactoryInterface
 {
@@ -13,7 +13,7 @@ class VersionControllerFactory implements FactoryInterface
         $serviceLocator = $controllerManager->getServiceLocator();
 
         return new VersionController(
-            $serviceLocator->get(Migration::class)
+            $serviceLocator->get(Table::class)
         );
     }
 }

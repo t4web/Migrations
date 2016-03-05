@@ -4,8 +4,7 @@ namespace T4web\Migrations\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\Db\Metadata\Metadata;
+use T4web\Migrations\MigrationVersion\Table;
 
 class MigrationFactory implements FactoryInterface
 {
@@ -18,35 +17,10 @@ class MigrationFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if ($serviceLocator instanceof AbstractPluginManager) {
-            $serviceLocator = $serviceLocator->getServiceLocator();
-        }
-
-        $config = $serviceLocator->get('Config');
-        $migrationConfig = $config['migrations'];
-
-        $adapterName = isset($migrationConfig['adapter']) ? $migrationConfig['adapter'] : 'Zend\Db\Adapter\Adapter';
-        /** @var $adapter \Zend\Db\Adapter\Adapter */
-        $adapter = $serviceLocator->get($adapterName);
-
-        $output = null;
-        if (isset($migrationConfig['show_log']) && $migrationConfig['show_log']) {
-            $console = $serviceLocator->get('console');
-            $output = new OutputWriter(function ($message) use ($console) {
-                $console->write($message . "\n");
-            });
-        }
-
-        $migrationVersionTable = $serviceLocator->get('T4web\Migrations\MigrationVersion\Table');
-        $metadata = new Metadata($adapter);
-
         return new Migration(
-            $adapter,
-            $metadata,
-            $migrationConfig,
             $serviceLocator->get(VersionResolver::class),
-            $migrationVersionTable,
-            $output,
+            $serviceLocator->get(Table::class),
+            $serviceLocator->get('console'),
             $serviceLocator
         );
     }

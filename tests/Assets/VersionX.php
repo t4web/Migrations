@@ -9,12 +9,12 @@ class VersionX extends AbstractMigration
 {
     public static $description = "Migration description";
 
-    public function up(MetadataInterface $schema)
+    public function up()
     {
         $this->addSql("SELECT *");
     }
 
-    public function down(MetadataInterface $schema)
+    public function down()
     {
         $this->addSql("DELETE *");
     }

@@ -4,17 +4,17 @@ namespace T4web\MigrationsTest\Controller;
 
 use Prophecy\Argument;
 use T4web\Migrations\Controller\VersionController;
-use T4web\Migrations\Service\Migration;
+use T4web\Migrations\MigrationVersion\Table;
 use T4web\Migrations\Exception\RuntimeException;
 
 class VersionControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testOnDispatchNotConsoleRequest()
     {
-        $migration = $this->prophesize(Migration::class);
+        $table = $this->prophesize(Table::class);
         $event = $this->prophesize('Zend\Mvc\MvcEvent');
 
-        $controller = new VersionController($migration->reveal());
+        $controller = new VersionController($table->reveal());
 
         $event->getRequest()->willReturn(
             $this->prophesize('Zend\Http\Request')->reveal()
@@ -27,16 +27,16 @@ class VersionControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testOnDispatch()
     {
-        $migration = $this->prophesize(Migration::class);
+        $table = $this->prophesize(Table::class);
         $event = $this->prophesize('Zend\Mvc\MvcEvent');
 
-        $controller = new VersionController($migration->reveal());
+        $controller = new VersionController($table->reveal());
 
         $event->getRequest()->willReturn(
             $this->prophesize('Zend\Console\Request')->reveal()
         );
 
-        $migration->getCurrentVersion()->willReturn('XXX');
+        $table->getCurrentVersion()->willReturn('XXX');
         $event->setResult("Current version XXX\n")->willReturn(null);
 
         $response = $controller->onDispatch($event->reveal());

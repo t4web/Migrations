@@ -5,7 +5,7 @@ namespace T4web\Migrations\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\MvcEvent;
-use T4web\Migrations\Service\Migration;
+use T4web\Migrations\MigrationVersion\Table;
 use T4web\Migrations\Exception\RuntimeException;
 
 /**
@@ -14,16 +14,16 @@ use T4web\Migrations\Exception\RuntimeException;
 class VersionController extends AbstractActionController
 {
     /**
-     * @var Migration
+     * @var Table
      */
-    protected $migration;
+    protected $table;
 
     /**
-     * @param Migration $migration
+     * @param Table $table
      */
-    public function __construct(Migration $migration)
+    public function __construct(Table $table)
     {
-        $this->migration = $migration;
+        $this->table = $table;
     }
 
     public function onDispatch(MvcEvent $e)
@@ -32,7 +32,7 @@ class VersionController extends AbstractActionController
             throw new RuntimeException('You can only use this action from a console!');
         }
 
-        $response = sprintf("Current version %s\n", $this->migration->getCurrentVersion());
+        $response = sprintf("Current version %s\n", $this->table->getCurrentVersion());
 
         $e->setResult($response);
 
