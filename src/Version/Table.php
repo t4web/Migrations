@@ -1,6 +1,6 @@
 <?php
 
-namespace T4web\Migrations\MigrationVersion;
+namespace T4web\Migrations\Version;
 
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;

@@ -3,12 +3,12 @@
 namespace T4web\MigrationsTest\Service;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
-use T4web\Migrations\MigrationVersion\Table;
-use T4web\Migrations\Service\VersionResolver;
-use T4web\Migrations\Service\VersionResolverFactory;
+use T4web\Migrations\Version\Table;
+use T4web\Migrations\Version\Resolver;
+use T4web\Migrations\Version\ResolverFactory;
 use T4web\Migrations\Config;
 
-class VersionResolverFactoryTest extends \PHPUnit_Framework_TestCase
+class ResolverFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateService()
     {
@@ -19,10 +19,10 @@ class VersionResolverFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceLocator->get(Config::class)->willReturn($config->reveal());
         $serviceLocator->get(Table::class)->willReturn($table->reveal());
 
-        $factory = new VersionResolverFactory();
+        $factory = new ResolverFactory();
 
         $service = $factory->createService($serviceLocator->reveal());
 
-        $this->assertTrue($service instanceof VersionResolver);
+        $this->assertTrue($service instanceof Resolver);
     }
 }

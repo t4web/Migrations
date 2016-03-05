@@ -1,8 +1,8 @@
 <?php
 
-namespace T4web\Migrations\MigrationVersion;
+namespace T4web\Migrations\Version;
 
-class MigrationVersion
+class Version
 {
 
     const TABLE_NAME = 'migration_version';

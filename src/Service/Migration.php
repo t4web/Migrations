@@ -7,8 +7,8 @@ use Zend\Db\Sql\Ddl;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Console\Adapter\Posix as Console;
 use T4web\Migrations\Migration\AbstractMigration;
-use T4web\Migrations\Config;
-use T4web\Migrations\MigrationVersion\Table;
+use T4web\Migrations\Version\Table;
+use T4web\Migrations\Version\Resolver;
 
 /**
  * Main migration logic
@@ -32,13 +32,13 @@ class Migration
 
     /**
      * @param Table                    $versionTable
-     * @param VersionResolver          $versionResolver
+     * @param Resolver                 $versionResolver
      * @param Console                  $console
      * @param ServiceLocatorInterface  $serviceLocator
      * @throws \Exception
      */
     public function __construct(
-        VersionResolver $versionResolver,
+        Resolver $versionResolver,
         Table $versionTable,
         Console $console,
         ServiceLocatorInterface $serviceLocator = null

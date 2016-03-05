@@ -1,5 +1,5 @@
 <?php
-namespace T4web\Migrations\Service;
+namespace T4web\Migrations\Version;
 
 use ArrayIterator;
 use GlobIterator;
@@ -7,10 +7,9 @@ use FilesystemIterator;
 use ReflectionClass;
 use ReflectionProperty;
 use T4web\Migrations\Config;
-use T4web\Migrations\MigrationVersion\Table;
 use T4web\Migrations\Migration\MigrationInterface;
 
-class VersionResolver
+class Resolver
 {
     /**
      * @var Config

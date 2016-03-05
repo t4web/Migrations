@@ -4,7 +4,7 @@ namespace T4web\MigrationsTest\Controller;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\ControllerManager;
-use T4web\Migrations\MigrationVersion\Table;
+use T4web\Migrations\Version\Table;
 use T4web\Migrations\Controller\VersionController;
 use T4web\Migrations\Controller\VersionControllerFactory;
 

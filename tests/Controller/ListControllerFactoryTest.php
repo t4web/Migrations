@@ -4,7 +4,7 @@ namespace T4web\MigrationsTest\Controller;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Mvc\Controller\ControllerManager;
-use T4web\Migrations\Service\VersionResolver;
+use T4web\Migrations\Version\Resolver;
 use T4web\Migrations\Controller\ListController;
 use T4web\Migrations\Controller\ListControllerFactory;
 
@@ -17,8 +17,8 @@ class ListControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $controllerManager = $this->prophesize(ControllerManager::class);
         $controllerManager->getServiceLocator()->willReturn($serviceLocator);
 
-        $resolver = $this->prophesize(VersionResolver::class);
-        $serviceLocator->get(VersionResolver::class)->willReturn($resolver->reveal());
+        $resolver = $this->prophesize(Resolver::class);
+        $serviceLocator->get(Resolver::class)->willReturn($resolver->reveal());
 
         $factory = new ListControllerFactory();
 

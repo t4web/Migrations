@@ -5,7 +5,7 @@ namespace T4web\Migrations\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Mvc\MvcEvent;
-use T4web\Migrations\MigrationVersion\Table;
+use T4web\Migrations\Version\Table;
 use T4web\Migrations\Exception\RuntimeException;
 
 /**

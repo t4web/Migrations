@@ -4,7 +4,7 @@ namespace T4web\MigrationsTest\Controller;
 
 use Prophecy\Argument;
 use T4web\Migrations\Controller\VersionController;
-use T4web\Migrations\MigrationVersion\Table;
+use T4web\Migrations\Version\Table;
 use T4web\Migrations\Exception\RuntimeException;
 
 class VersionControllerTest extends \PHPUnit_Framework_TestCase

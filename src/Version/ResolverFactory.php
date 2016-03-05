@@ -1,13 +1,12 @@
 <?php
 
-namespace T4web\Migrations\Service;
+namespace T4web\Migrations\Version;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use T4web\Migrations\Config;
-use T4web\Migrations\MigrationVersion\Table;
 
-class VersionResolverFactory implements FactoryInterface
+class ResolverFactory implements FactoryInterface
 {
 
     /**
@@ -18,7 +17,7 @@ class VersionResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new VersionResolver(
+        return new Resolver(
             $serviceLocator->get(Config::class),
             $serviceLocator->get(Table::class)
         );

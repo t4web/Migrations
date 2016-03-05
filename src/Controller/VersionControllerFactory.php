@@ -4,7 +4,7 @@ namespace T4web\Migrations\Controller;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use T4web\Migrations\MigrationVersion\Table;
+use T4web\Migrations\Version\Table;
 
 class VersionControllerFactory implements FactoryInterface
 {

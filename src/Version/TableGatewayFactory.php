@@ -1,6 +1,6 @@
 <?php
 
-namespace T4web\Migrations\MigrationVersion;
+namespace T4web\Migrations\Version;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -30,8 +30,8 @@ class TableGatewayFactory implements FactoryInterface
         $adapter = $serviceLocator->get($adapterName);
 
         $resultSetPrototype = new ResultSet();
-        $resultSetPrototype->setArrayObjectPrototype(new MigrationVersion());
+        $resultSetPrototype->setArrayObjectPrototype(new Version());
 
-        return new TableGateway(MigrationVersion::TABLE_NAME, $adapter, null, $resultSetPrototype);
+        return new TableGateway(Version::TABLE_NAME, $adapter, null, $resultSetPrototype);
     }
 }

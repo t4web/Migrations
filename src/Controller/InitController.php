@@ -8,7 +8,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Db\Adapter\Adapter as DbAdapter;
 use Zend\Db\Sql\Ddl;
 use Zend\Db\Sql\Sql;
-use T4web\Migrations\MigrationVersion\MigrationVersion;
+use T4web\Migrations\Version\Version;
 use T4web\Migrations\Exception\RuntimeException;
 
 class InitController extends AbstractActionController
@@ -29,7 +29,7 @@ class InitController extends AbstractActionController
             throw new RuntimeException('You can only use this action from a console!');
         }
 
-        $table = new Ddl\CreateTable(MigrationVersion::TABLE_NAME);
+        $table = new Ddl\CreateTable(Version::TABLE_NAME);
         $table->addColumn(new Ddl\Column\Integer('id', false, null, ['autoincrement' => true]));
         $table->addColumn(new Ddl\Column\BigInteger('version'));
         $table->addConstraint(new Ddl\Constraint\PrimaryKey('id'));
