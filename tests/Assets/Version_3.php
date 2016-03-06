@@ -4,13 +4,13 @@ namespace T4web\MigrationsTest\Assets;
 
 use T4web\Migrations\Migration\AbstractMigration;
 
-class VersionX extends AbstractMigration
+class Version_3 extends AbstractMigration
 {
-    public static $description = "Migration description";
+    public static $description = "Some migration 3";
 
     public function up()
     {
-        //$this->addSql("SELECT *");
+        throw new \Exception('Any other exception');
     }
 
     public function down()

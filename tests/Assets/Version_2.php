@@ -2,15 +2,16 @@
 
 namespace T4web\MigrationsTest\Assets;
 
+use Zend\Db\Adapter\Exception\InvalidQueryException;
 use T4web\Migrations\Migration\AbstractMigration;
 
-class VersionX extends AbstractMigration
+class Version_2 extends AbstractMigration
 {
-    public static $description = "Migration description";
+    public static $description = "Some migration 2";
 
     public function up()
     {
-        //$this->addSql("SELECT *");
+        throw new InvalidQueryException('Some SQL error');
     }
 
     public function down()

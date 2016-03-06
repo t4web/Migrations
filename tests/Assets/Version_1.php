@@ -2,7 +2,6 @@
 
 namespace T4web\MigrationsTest\Assets;
 
-use Zend\Db\Metadata\MetadataInterface;
 use T4web\Migrations\Migration\AbstractMigration;
 
 class Version_1 extends AbstractMigration

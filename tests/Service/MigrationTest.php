@@ -68,6 +68,46 @@ class MigrationTest extends \PHPUnit_Framework_TestCase
         $this->migration->migrate();
     }
 
+    public function testMigrateWithInvalidQueryException()
+    {
+        $versions = [
+            [
+                'version' => 77,
+                'class' => 'T4web\MigrationsTest\Assets\Version_2',
+                'description' => 'Some description',
+                'applied' => false,
+            ],
+        ];
+
+        $this->resolver->getAll(false)->willReturn($versions);
+        $this->resolver->getAll()->willReturn([$versions[0]]);
+        $this->table->getCurrentVersion()->willReturn(22);
+
+        $this->setExpectedException('\Exception');
+
+        $this->migration->migrate();
+    }
+
+    public function testMigrateWithException()
+    {
+        $versions = [
+            [
+                'version' => 77,
+                'class' => 'T4web\MigrationsTest\Assets\Version_3',
+                'description' => 'Some description',
+                'applied' => false,
+            ],
+        ];
+
+        $this->resolver->getAll(false)->willReturn($versions);
+        $this->resolver->getAll()->willReturn([$versions[0]]);
+        $this->table->getCurrentVersion()->willReturn(22);
+
+        $this->setExpectedException('\Exception');
+
+        $this->migration->migrate();
+    }
+
     public function testSortMigrationsByVersionDesc()
     {
         $versions = [

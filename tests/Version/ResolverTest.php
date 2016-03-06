@@ -29,16 +29,24 @@ class ResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAll()
     {
-        $this->table->applied('1')->willReturn(false);
+        $this->table->applied('1')->willReturn(true);
+        $this->table->applied('2')->willReturn(false);
+        $this->table->applied('3')->willReturn(false);
 
         $migrations = $this->resolver->getAll();
 
         $this->assertEquals(
             [
                 [
-                    'version' => '1',
-                    'class' => 'T4web\MigrationsTest\Assets\Version_1',
-                    'description' => 'Some migration 1',
+                    'version' => '2',
+                    'class' => 'T4web\MigrationsTest\Assets\Version_2',
+                    'description' => 'Some migration 2',
+                    'applied' => false,
+                ],
+                [
+                    'version' => '3',
+                    'class' => 'T4web\MigrationsTest\Assets\Version_3',
+                    'description' => 'Some migration 3',
                     'applied' => false,
                 ]
             ],
