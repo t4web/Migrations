@@ -45,25 +45,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new Config($config, $filesystem->reveal());
     }
 
-    public function testConfigWithoutDirCreation()
-    {
-        $filesystem = $this->prophesize(Filesystem::class);
-
-        $config = [
-            'migrations' => [
-                'dir' => '/migrations',
-                'namespace' => 'T4web\Migrations',
-            ],
-        ];
-
-        $filesystem->isDir($config['migrations']['dir'])->willReturn(false);
-        $filesystem->mkdir($config['migrations']['dir'], 0775)->willReturn(false);
-
-        $this->setExpectedException(RuntimeException::class);
-
-        $config = new Config($config, $filesystem->reveal());
-    }
-
     public function testConfigWithDirNotWritable()
     {
         $filesystem = $this->prophesize(Filesystem::class);

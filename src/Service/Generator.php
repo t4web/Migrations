@@ -70,22 +70,22 @@ class Generator
 
 namespace %s;
 
-use Zend\Db\Metadata\MetadataInterface;
 use T4web\Migrations\Migration\AbstractMigration;
 
 class %s extends AbstractMigration
 {
     public static $description = "Migration description";
 
-    public function up(MetadataInterface $schema)
+    public function up()
     {
-        //$this->addSql(/*Sql instruction*/);
+        /** @var Zend\Db\ResultSet\ResultSet $result */
+        //$result = $this->executeQuery(/*Sql instruction*/);
     }
 
-    public function down(MetadataInterface $schema)
+    public function down()
     {
         //throw new \RuntimeException(\'No way to go down!\');
-        //$this->addSql(/*Sql instruction*/);
+        //$this->executeQuery(/*Sql instruction*/);
     }
 }',
             $this->migrationNamespace,
