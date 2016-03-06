@@ -48,9 +48,7 @@ class Config
         $this->namespace = $options['namespace'];
 
         if (!$filesystem->isDir($this->dir)) {
-            if (!$filesystem->mkdir($this->dir, 0775)) {
-                throw new RuntimeException(sprintf('Failed to create migrations directory %s', $this->dir));
-            }
+            $filesystem->mkdir($this->dir, 0775);
         } elseif (!$filesystem->isWritable($this->dir)) {
             throw new RuntimeException(sprintf('Migrations directory is not writable %s', $this->dir));
         }
