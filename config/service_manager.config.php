@@ -1,7 +1,7 @@
 <?php
 namespace T4web\Migrations;
 
-use Symfony\Component\Filesystem\Filesystem;
+use T4web\Filesystem\Filesystem;
 
 return [
     'factories' => [
