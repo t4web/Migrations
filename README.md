@@ -123,13 +123,13 @@ class Version_20130403165433 extends AbstractMigration
 {
     public static $description = "Migration description";
 
-    public function up(MetadataInterface $schema)
+    public function up()
     {
          //$this->getServiceLocator()->get(/*Get service by alias*/);
 
     }
 
-    public function down(MetadataInterface $schema)
+    public function down()
     {
         //$this->getServiceLocator()->get(/*Get service by alias*/);
     }
