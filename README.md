@@ -25,7 +25,7 @@ php composer.phar require t4web/migrations
 or add to your composer.json
 ```json
 "require": {
-  "t4web/migrations": "^1.0.0"
+  "t4web/migrations": "^2.0.0"
 }
 ```
 
@@ -91,44 +91,26 @@ Generic migration class has name `Version_<YmdHis>` and implement `T4web\Migrati
 namespace T4web\Migrations;
 
 use `T4web\Migrations\Migration\AbstractMigration;
-use Zend\Db\Metadata\MetadataInterface;
 
 class Version_20130403165433 extends AbstractMigration
 {
     public static $description = "Migration description";
 
-    public function up(MetadataInterface $schema)
+    public function up()
     {
-        //$this->addSql(/*Sql instruction*/);
+        /** @var Zend\Db\ResultSet\ResultSet $result */
+        //$result = $this->executeQuery(/*Sql instruction*/);
     }
 
-    public function down(MetadataInterface $schema)
+    public function down()
     {
-        //$this->addSql(/*Sql instruction*/);
+        //throw new \RuntimeException('No way to go down!');
+        //$this->executeQuery(/*Sql instruction*/);
     }
 }
 ```
 
-#### Multi-statement sql
-While this module supports execution of multiple SQL statements it does not have way to detect if any other statement than the first contained an error. It is *highly* recommended you only provide single SQL statements to `addSql` at a time.
-I.e instead of
-
-```
-$this->addSql('SELECT NOW(); SELECT NOW(); SELECT NOW();');
-```
-
-You should use
-
-```
-$this->addSql('SELECT NOW();');
-$this->addSql('SELECT NOW();');
-$this->addSql('SELECT NOW();');
-```
-
 ### Accessing ServiceLocator In Migration Class
-
-By implementing the `Zend\ServiceManager\ServiceLocatorAwareInterface` in your migration class you get access to the
-ServiceLocator used in the application.
 
 ```php
 <?php
@@ -136,71 +118,20 @@ ServiceLocator used in the application.
 namespace T4web\Migrations;
 
 use T4web\Migrations\Migration\AbstractMigration;
-use Zend\Db\Metadata\MetadataInterface;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 class Version_20130403165433 extends AbstractMigration
-                            implements ServiceLocatorAwareInterface
 {
-    use ServiceLocatorAwareTrait;
-
     public static $description = "Migration description";
 
     public function up(MetadataInterface $schema)
     {
          //$this->getServiceLocator()->get(/*Get service by alias*/);
-         //$this->addSql(/*Sql instruction*/);
 
     }
 
     public function down(MetadataInterface $schema)
     {
         //$this->getServiceLocator()->get(/*Get service by alias*/);
-        //$this->addSql(/*Sql instruction*/);
-    }
-}
-```
-
-### Accessing Zend Db Adapter In Migration Class
-
-By implementing the `Zend\Db\Adapter\AdapterAwareInterface` in your migration class you get access to the
-Db Adapter configured for the migration.
-
-```php
-<?php
-
-namespace T4web\Migrations;
-
-use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\Adapter\AdapterAwareTrait;
-use Zend\Db\Sql\Ddl\Column\Integer;
-use Zend\Db\Sql\Ddl\Column\Varchar;
-use Zend\Db\Sql\Ddl\Constraint\PrimaryKey;
-use Zend\Db\Sql\Ddl\CreateTable;
-use Zend\Db\Sql\Ddl\DropTable;
-use T4web\Migrations\Migration\AbstractMigration;
-use Zend\Db\Metadata\MetadataInterface;
-
-class Version_20150524162247 extends AbstractMigration implements AdapterAwareInterface
-{
-    use AdapterAwareTrait;
-
-    public static $description = "Migration description";
-
-    public function up(MetadataInterface $schema)
-    {
-        $table = new CreateTable('my_table');
-        $table->addColumn(new Integer('id', false));
-        $table->addConstraint(new PrimaryKey('id'));
-        $table->addColumn(new Varchar('my_column', 64));
-        $this->addSql($table->getSqlString($this->adapter->getPlatform()));
-    }
-
-    public function down(MetadataInterface $schema)
-    {
-        $drop = new DropTable('my_table');
-        $this->addSql($drop->getSqlString($this->adapter->getPlatform()));
     }
 }
 ```
