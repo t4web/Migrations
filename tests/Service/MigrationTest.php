@@ -108,6 +108,37 @@ class MigrationTest extends \PHPUnit_Framework_TestCase
         $this->migration->migrate();
     }
 
+    public function testMigrateWithVersionDown()
+    {
+        $versions = [
+            [
+                'version' => 33,
+                'class' => 'T4web\MigrationsTest\Assets\VersionX',
+                'description' => 'Some description',
+                'applied' => false,
+            ],
+            [
+                'version' => 22,
+                'class' => 'Some\Class_22',
+                'description' => 'Some description',
+                'applied' => true,
+            ],
+            [
+                'version' => 77,
+                'class' => 'T4web\MigrationsTest\Assets\Version_1',
+                'description' => 'Some description',
+                'applied' => false,
+            ],
+        ];
+
+        $this->resolver->getAll(true)->willReturn(new \ArrayIterator($versions));
+        $this->table->getCurrentVersion()->willReturn(33);
+        $this->console->writeLine(Argument::type('string'))->willReturn(null);
+        $this->table->delete(77)->willReturn(null);
+
+        $this->migration->migrate('77', true, true);
+    }
+
     public function testSortMigrationsByVersionDesc()
     {
         $versions = [
