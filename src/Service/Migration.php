@@ -153,7 +153,7 @@ class Migration
 
             $this->console->writeLine(
                 sprintf(
-                    "%sExecute migration class %s.",
+                    "%s Execute migration class %s.",
                     $migration['class'],
                     $down ? 'down' : 'up'
                 )
