@@ -78,7 +78,7 @@ class %s extends AbstractMigration
 
     public function up()
     {
-        /** @var Zend\Db\ResultSet\ResultSet $result */
+        /** @var \Zend\Db\ResultSet\ResultSet $result */
         //$result = $this->executeQuery(/*Sql instruction*/);
     }
 
